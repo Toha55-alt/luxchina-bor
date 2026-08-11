@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxChina Express</title>
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    body { background-color: #f4f6f9; color: #333; padding: 15px; }
+    header { background-color: #d32f2f; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    .admin-info { font-size: 13px; margin-top: 5px; opacity: 0.9; }
+    .admin-btn { background: #ff9800; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; float: right; font-weight: bold; }
+    .card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h2 { color: #d32f2f; font-size: 16px; margin-bottom: 10px; }
+    input { width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    .row { display: flex; gap: 5px; }
+    .row input { flex: 1; }
+    button.btn { background: #2e7d32; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; cursor: pointer; font-size: 15px; font-weight: bold; }
+    .res { margin-top: 10px; padding: 10px; border-radius: 4px; display: none; font-weight: bold; }
+    #adminPanel { display: none; background: #fff3e0; border: 2px dashed #ff9800; }
+    .clearfix::after { content: ""; clear: both; display: table; }
+  </style>
+</head>
+<body>
+ 
+  <header class="clearfix">
+    <button class="admin-btn" onclick="toggleAdmin()">Администратор</button>
+    <h1>🇨🇳 LuxChina </h1>
+    <div class="admin-info">
+      👤 Админ: Тоҳиров Шукруллоҳҷон | 📞 Tel: +992929282891
+    </div>
+  </header>
+ 
+  <div class="card">
+    <h2>🔍 Санҷиши трек-код</h2>
+    <input type="text" id="trackInput" placeholder="Масалан: LX123456">
+    <button class="btn" onclick="checkTrack()">Санҷидан</button>
+    <div id="trackResult" class="res"></div>
+  </div>
+ 
+  <div class="card">
+    <h2>💱 Конвертер (Юань ➔ Сомонӣ)</h2>
+    <input type="number" id="yuanInput" placeholder="Маблағ бо Юан (¥)">
+    <button class="btn" onclick="convertYuan()">Конвертер</button>
+    <div id="yuanResult" class="res"></div>
+  </div>
+ 
+  <div class="card">
+    <h2>📐 Ҳисоби нархи бор (Кг / Куб)</h2>
+    <input type="number" id="weightInput" placeholder="Вазн (кг)">
+    <div class="row">
+      <input type="number" id="lengthInput" placeholder="Дарозӣ (см)">
+      <input type="number" id="widthInput" placeholder="Бар (см)">
+      <input type="number" id="heightInput" placeholder="Баландӣ (см)">
+    </div>
+    <button class="btn" onclick="calculateCargo()">Ҳисоб кардан</button>
+    <div id="cargoResult" class="res"></div>
+  </div>
+ 
+  <div class="card" id="adminPanel">
+    <h2>⚙️ Панели Администратор</h2>
+    <input type="text" id="newTrackCode" placeholder="Трек-код (масалан: LX999999)">
+    <input type="text" id="newTrackStatus" placeholder="Статус (масалан: Дар роҳ ба Душанбе)">
+    <button class="btn" onclick="addTrack()">Илова кардан</button>
+  </div>
+ 
+  <script>
+    var tracks = {
+      "LX123456": "🟢 Бор дар омбори Гуанчжоу қабул шуд.",
+      "LX789012": "🚚 Бор дар роҳ ба сӯи Хуҷанд мебошад.",
+      "LX112233": "✅ Бор ба шаҳри Хуҷанд расид."
+    };
+ 
+    function checkTrack() {
+      var input = document.getElementById("trackInput").value.trim();
+      var res = document.getElementById("trackResult");
+      res.style.display = "block";
+ 
+      if (!input) {
+        res.style.backgroundColor = "#ffebee";
+        res.style.color = "#c62828";
+        res.innerHTML = "Лутфан трек-кодро дохил кунед!";
+        return;
+      }
+ 
+      if (tracks[input]) {
+        res.style.backgroundColor = "#e8f5e9";
+        res.style.color = "#2e7d32";
+        res.innerHTML = tracks[input];
+      } else {
+        res.style.backgroundColor = "#fffde7";
+        res.style.color = "#f57f17";
+        res.innerHTML = "❌ Чунин трек-код ёфт нашуд!";
+      }
+    }
+ 
+    function convertYuan() {
+      var yuan = parseFloat(document.getElementById("yuanInput").value);
+      var res = document.getElementById("yuanResult");
+      res.style.display = "block";
+ 
+      if (isNaN(yuan) || yuan <= 0) {
+        res.style.backgroundColor = "#ffebee";
+        res.style.color = "#c62828";
+        res.innerHTML = "Маблағи дурустро дохил кунед!";
+        return;
+      }
+ 
+      var somoni = (yuan * 1.50).toFixed(2);
+      res.style.backgroundColor = "#e3f2fd";
+      res.style.color = "#0d47a1";
+      res.innerHTML = "💰 " + yuan + " ¥ = " + somoni + " сомонӣ";
+    }
+ 
+    function calculateCargo() {
+      var kg = parseFloat(document.getElementById("weightInput").value) || 0;
+      var l = parseFloat(document.getElementById("lengthInput").value) || 0;
+      var w = parseFloat(document.getElementById("widthInput").value) || 0;
+      var h = parseFloat(document.getElementById("heightInput").value) || 0;
+      var res = document.getElementById("cargoResult");
+ 
+      if (kg <= 0 && (l <= 0 || w <= 0 || h <= 0)) {
+        res.style.display = "block";
+        res.style.backgroundColor = "#ffebee";
+        res.style.color = "#c62828";
+        res.innerHTML = "Вазн ё андозаҳоро пурра нависед!";
+        return;
+      }
+ 
+      var costKg = kg * 24;
+      var cbm = (l * w * h) / 1000000;
+      var costCbm = cbm * 2400;
+ 
+      res.style.display = "block";
+      res.style.backgroundColor = "#e8f5e9";
+      res.style.color = "#1b5e20";
+ 
+      if (costCbm > costKg) {
+        res.innerHTML = "📦 Нарх бо КУБ ҳисоб шуд: " + costCbm.toFixed(2) + " сомонӣ (" + cbm.toFixed(3) + " м³)";
+      } else {
+        res.innerHTML = "⚖️ Нарх бо КИЛОГРАММ ҳисоб шуд: " + costKg.toFixed(2) + " сомонӣ (" + kg + " кг)";
+      }
+    }
+ 
+    function toggleAdmin() {
+      var panel = document.getElementById("adminPanel");
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        var password = prompt("Пароли администраторро дохил кунед:");
+        if (password === "1234") {
+          panel.style.display = "block";
+        } else if (password !== null) {
+          alert("❌ Парол нодуруст аст!");
+        }
+      }
+    }
+ 
+    function addTrack() {
+      var code = document.getElementById("newTrackCode").value.trim();
+      var status = document.getElementById("newTrackStatus").value.trim();
+ 
+      if (!code || !status) {
+        alert("Лутфан ҳам трек-код ва ҳам статусро нависед!");
+        return;
+      }
+ 
+      tracks[code] = status;
+      alert("✅ Трек-коди " + code + " илова шуд!");
+ 
+      document.getElementById("newTrackCode").value = "";
+      document.getElementById("newTrackStatus").value = "";
+    }
+  </script>
+ 
+</body>
+</html>
