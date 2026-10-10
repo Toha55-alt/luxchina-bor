@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мағозаи онлайн</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f1e9;--card:#fffdf9;--ink:#2a1f1a;--mut:#7a6a60;--line:#e2d6c8;--acc:#b5342b;--accT:#fff;--ok:#2d7a4b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1613;--card:#271f1b;--ink:#f1e8df;--mut:#b3a396;--line:#43362e;--acc:#e0574c;--accT:#1c1613;--ok:#5cc084}}
+:root[data-theme="dark"]{--bg:#1c1613;--card:#271f1b;--ink:#f1e8df;--mut:#b3a396;--line:#43362e;--acc:#e0574c;--accT:#1c1613;--ok:#5cc084}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Verdana,"Segoe UI",sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 16px 6px;max-width:900px;margin:auto}
+h1{margin:0;font:800 1.6rem Georgia,serif}.br{background:linear-gradient(90deg,#b5342b,#e8602c,#f2a516,#b5342b);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:bg 6s linear infinite}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;max-width:900px;margin:auto}
+nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:8px;font:inherit;cursor:pointer}
+nav button.on{background:var(--acc);color:var(--accT);border-color:var(--acc)}
+main{max-width:900px;margin:auto;padding:8px 16px 40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+h2{font-size:1.1rem;margin:0 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+input,select,textarea{flex:1 1 150px;min-width:0;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+button.p,a.p{background:var(--acc);color:var(--accT);border:0;padding:10px 14px;border-radius:8px;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+button.s,a.s{background:none;border:1px solid var(--line);color:var(--ink);padding:8px 12px;border-radius:8px;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.mut{color:var(--mut);font-size:.9rem}
+.price{font-weight:bold;font-size:1.2rem}
+.li{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.li:last-child{border:0}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;background:var(--line);font-size:.85rem}
+.wrap{overflow-x:auto}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}@keyframes fl{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(8deg)}}
+body{background:linear-gradient(120deg,#fff0e4,#ffd9cf,#fff3c9,#ffe6e0);background-size:300% 300%;animation:bg 20s ease infinite}
+@media (prefers-color-scheme:dark){body{background:linear-gradient(120deg,#1c1613,#32160f,#2a2210,#1c1613);background-size:300% 300%}}
+button,a.p,a.s{transition:transform .15s,box-shadow .2s}button.p:hover,a.p:hover{box-shadow:0 6px 16px rgba(181,52,43,.35);transform:translateY(-1px)}button:active{transform:scale(.96)}.sm{padding:6px 12px!important;font-size:.85rem}
+.hero{position:relative;overflow:hidden;border-radius:14px;padding:28px 20px;margin-bottom:14px;color:#fff;background:linear-gradient(135deg,#b5342b,#e8602c,#f2a516,#b5342b);background-size:300% 300%;animation:bg 8s ease infinite}.hero h2{font:700 1.6rem Georgia,serif;margin:0 0 6px}.hero p{margin:0 0 12px;max-width:560px}.stats{display:flex;gap:16px;flex-wrap:wrap}.fl{position:absolute;right:6%;top:10px;font-size:2.6rem;opacity:.4;animation:fl 4s ease-in-out infinite}.f2{right:24%;top:auto;bottom:6px;animation-delay:1.5s}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:20px;font:inherit;cursor:pointer;margin:0 6px 8px 0}.chip.on{background:var(--acc);color:var(--accT);border-color:var(--acc)}
+.pc{position:relative;overflow:hidden;padding:0;transition:transform .25s,box-shadow .25s}.an{animation:up .5s both}.pc:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(181,52,43,.25)}.pc img{width:100%;aspect-ratio:1;object-fit:cover;display:block;transition:transform .4s}.pc:hover img{transform:scale(1.08)}.pb{padding:12px}.heart{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.88);border:0;border-radius:50%;width:34px;height:34px;cursor:pointer;z-index:1;transition:transform .2s}.heart:hover{transform:scale(1.2)}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:24px;opacity:0;pointer-events:none;transition:.3s;z-index:9}#toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{header,nav,.np{display:none!important}body{background:#fff;color:#000}.card{border:0}}
+</style>
+</head>
+<body>
+<header><h1><span class="br">China_mall</span> 🇨🇳</h1><div id="who"></div></header>
+<nav id="nav"></nav>
+<main id="main"></main><div id="toast"></div>
+<script>
+var KEY="shop_v1",db={users:[{u:"admin",p:"admin123",role:"admin",name:"Администратор"}],products:[],orders:[],
+ cfg:{shop:"Мағозаи ман",wa:"",tg:"",ig:"",tt:"",rb:"",card:""}};
+try{var r=localStorage.getItem(KEY);if(r)db=JSON.parse(r)}catch(e){}
+var me=null,tab="shop",cart={},last=null,texts=[],fav={},q="",cat="Ҳама",srt="",fresh=1;
+function emo(e){return "data:image/svg+xml;utf8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3d6"/><stop offset="1" stop-color="#ffb09c"/></linearGradient></defs><rect width="200" height="200" fill="url(#g)"/><text x="100" y="128" font-size="90" text-anchor="middle">'+e+'</text></svg>')}
+if(!db.seeded){db.seeded=1;db.cfg.shop="China_mall 🇨🇳";[["Смартфон Pro 5G",2400,15,"Электроника","📱"],["Гӯшмонаки бесим",180,40,"Электроника","🎧"],["Соати оқил",350,25,"Электроника","⌚"],["Кроссовкаи варзишӣ",260,30,"Либос","👟"],["Рюкзаки шаҳрӣ",150,35,"Либос","🎒"],["Чароғи LED-и хона",90,50,"Хона","💡"]].forEach(function(x,i){db.products.push({id:"d"+i,seller:"admin",sname:"China_mall",name:x[0],price:x[1],stock:x[2],desc:"Сифати баланд, расонидан ба Осиёи Марказӣ",cat:x[3],img:emo(x[4])})});save()}
+function toast(t){var e=$("toast");e.textContent=t;e.className="show";clearTimeout(window.tt);window.tt=setTimeout(function(){e.className=""},1800)}
+try{var sv=sessionStorage.getItem("shop_me");if(sv)me=JSON.parse(sv)}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function go(t){tab=t;render()}
+function cartN(){return Object.keys(cart).reduce(function(a,k){return a+cart[k]},0)}
+function tabsFor(){if(!me)return[["shop","Мағоза"]];
+ if(me.role=="customer")return[["shop","Мағоза"],["cart","Сабад ("+cartN()+")"],["orders","Фармоишҳо"],["ask","Савол"],["me","Профил"]];
+ if(me.role=="seller")return[["prod","Маҳсулотҳо"],["orders","Фармоишҳо"],["me","Профил"]];
+ return[["users","Фурушандагон"],["prod","Маҳсулотҳо"],["orders","Фармоишҳо"],["cfg","Танзимот"],["me","Профил"]]}
+function login(){var u=$("lu").value.trim(),p=$("lp").value;
+ var f=db.users.filter(function(x){return x.u==u&&x.p==p})[0];
+ if(!f){$("lerr").textContent="Логин ё парол нодуруст аст.";return}
+ me=f;try{sessionStorage.setItem("shop_me",JSON.stringify(f))}catch(e){}
+ tab=f.role=="customer"?"shop":f.role=="seller"?"prod":"users";render()}
+function register(){var u=$("ru").value.trim(),p=$("rp").value,n=$("rn").value.trim();
+ if(!u||p.length<4||!n){$("rerr").textContent="Ном, логин ва парол (аз 4 ҳарф) лозим аст.";return}
+ if(db.users.some(function(x){return x.u==u})){$("rerr").textContent="Ин логин банд аст.";return}
+ db.users.push({u:u,p:p,role:"customer",name:n});save();$("lu").value=u;$("lp").value=p;login()}
+function logout(){me=null;cart={};try{sessionStorage.removeItem("shop_me")}catch(e){}tab="shop";render()}
+function addUser(){var u=$("su").value.trim(),p=$("sp").value,n=$("sn").value.trim();
+ if(!u||p.length<6||!n||db.users.some(function(x){return x.u==u}))return alert("Маълумотро санҷед (логин банд набошад, парол аз 6 аломат)");
+ db.users.push({u:u,p:p,role:$("sr").value,name:n});save();render()}
+function delUser(u){db.users=db.users.filter(function(x){return x.u!=u});save();render()}
+function addProd(){var n=$("pn").value.trim(),pr=parseFloat($("pp").value),st=parseInt($("ps").value),d=$("pd").value.trim();
+ if(!n||isNaN(pr)||isNaN(st))return alert("Ном, нарх ва миқдорро ворид кунед");
+ var f=$("pi").files[0],ct=$("pc").value;function fin(im){db.products.push({id:uid(),seller:me.u,sname:me.name,name:n,price:pr,stock:st,desc:d,cat:ct,img:im||emo("📦")});save();toast("Маҳсулот илова шуд ✓");render()}
+ if(!f)return fin("");var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(1,420/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);fin(c.toDataURL("image/jpeg",.72))};im.src=rd.result};rd.readAsDataURL(f)}
+function delProd(id){db.products=db.products.filter(function(x){return x.id!=id});save();render()}
+function add(id){var p=db.products.filter(function(x){return x.id==id})[0];
+ if((cart[id]||0)>=p.stock)return alert("Дар анбор бештар нест");cart[id]=(cart[id]||0)+1;toast("Ба сабад илова шуд ✓");render()}
+function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];render()}
+function cartItems(){return Object.keys(cart).map(function(id){var p=db.products.filter(function(x){return x.id==id})[0];return p?{pid:id,name:p.name,price:p.price,qty:cart[id],seller:p.seller}:null}).filter(Boolean)}
+function order(){var it=cartItems(),ph=$("cph").value.trim(),ad=$("cad").value.trim(),pay=$("cpay").value;
+ if(!it.length||!ph||!ad)return alert("Телефон ва суроғаро ворид кунед");
+ var tot=it.reduce(function(a,x){return a+x.price*x.qty},0);
+ it.forEach(function(x){var p=db.products.filter(function(q){return q.id==x.pid})[0];if(p)p.stock-=x.qty});
+ var o={id:"№"+(1000+db.orders.length+1),date:new Date().toLocaleString("ru-RU"),cust:me.u,cname:me.name,phone:ph,addr:ad,items:it,total:tot,pay:pay,status:"Нав"};
+ db.orders.push(o);save();cart={};last=o.id;tab="receipt";render()}
+function otext(o){return "Фармоиш "+o.id+" ("+o.date+")\nМизоҷ: "+o.cname+", "+o.phone+"\nСуроға: "+o.addr+"\n"+o.items.map(function(x){return "- "+x.name+" x"+x.qty+" = "+x.price*x.qty}).join("\n")+"\nҶамъ: "+o.total+"\nПардохт: "+o.pay+"\nМағоза: "+db.cfg.shop}
+function copyT(i){try{navigator.clipboard.writeText(texts[i])}catch(e){}}
+function sendBtns(text){var i=texts.push(text)-1,c=db.cfg,h="",e=encodeURIComponent(text);
+ if(c.wa)h+='<a class="s" target="_blank" rel="noopener" href="https://wa.me/'+c.wa.replace(/\D/g,"")+'?text='+e+'">WhatsApp</a> ';
+ if(c.tg)h+='<a class="s" target="_blank" rel="noopener" href="https://t.me/'+c.tg.replace("@","")+'" onclick="copyT('+i+')">Telegram</a> ';
+ if(c.ig)h+='<a class="s" target="_blank" rel="noopener" href="https://instagram.com/'+c.ig.replace("@","")+'" onclick="copyT('+i+')">Instagram</a> ';
+ if(c.tt)h+='<a class="s" target="_blank" rel="noopener" href="https://tiktok.com/@'+c.tt.replace("@","")+'" onclick="copyT('+i+')">TikTok</a> ';
+ h+='<a class="s" target="_blank" rel="noopener" href="'+esc(c.rb||"https://robita.tj")+'" onclick="copyT('+i+')">robita.tj</a>';
+ return '<div class="np"><div class="mut" style="margin:8px 0">Матн нусхабардорӣ мешавад (Telegram, Instagram, TikTok, robita.tj): дар чат пахш кунед (Paste). WhatsApp бо матни тайёр кушода мешавад.</div>'+h+'</div>'}
+function receipt(o){return '<div class="card" id="rc"><h2>Чек '+esc(o.id)+' · '+esc(db.cfg.shop)+'</h2><div class="mut">'+esc(o.date)+'</div>'+
+ o.items.map(function(x){return '<div class="li"><span>'+esc(x.name)+' × '+x.qty+'</span><span>'+x.price*x.qty+'</span></div>'}).join("")+
+ '<div class="li"><b>Ҷамъ</b><span class="price">'+o.total+'</span></div><div>Мизоҷ: '+esc(o.cname)+', '+esc(o.phone)+'</div><div>Суроға: '+esc(o.addr)+'</div><div>Пардохт: '+esc(o.pay)+(o.pay.indexOf("Корт")==0&&db.cfg.card?' — корт: <b>'+esc(db.cfg.card)+'</b>':'')+'</div><div>Ҳолат: <span class="tag">'+esc(o.status)+'</span></div>'+
+ '<div class="np" style="margin-top:10px"><button class="p" onclick="window.print()">Чоп / захира ба PDF</button></div>'+sendBtns(otext(o))+'</div>'}
+function setSt(id,v){db.orders.filter(function(o){return o.id==id})[0].status=v;save();render()}
+function saveCfg(){["shop","wa","tg","ig","tt","rb","card"].forEach(function(k){db.cfg[k]=$("c_"+k).value.trim()});save();render();alert("Захира шуд")}
+function render(){
+ document.title="China_mall";
+ $("who").innerHTML=me?'<span class="mut">'+esc(me.name)+' ('+({admin:"админ",seller:"фурушанда",customer:"мизоҷ"})[me.role]+')</span> <button class="s" onclick="logout()">Баромад</button>':'<button class="p sm" onclick="go(\'login\')">Ворид</button>';
+ var t=tabsFor();if(!t.some(function(x){return x[0]==tab})&&tab!="receipt"&&tab!="login")tab=t[0][0];
+ $("nav").innerHTML=t.map(function(x){return '<button class="'+(x[0]==tab?"on":"")+'" onclick="go(\''+x[0]+'\')">'+x[1]+'</button>'}).join("");
+ var h="";
+ if(tab=="shop")h=shopV2();else if(tab=="login")h=loginV();else if(tab=="cart")h=cartV();
+ else if(tab=="orders")h=ordersV();else if(tab=="ask")h=askV();else if(tab=="prod")h=prodV();
+ else if(tab=="users")h=usersV();else if(tab=="cfg")h=cfgV();else if(tab=="me")h=meV();else if(tab=="receipt"){var o=db.orders.filter(function(x){return x.id==last})[0];h='<p class="np"><b>Фармоиш қабул шуд.</b> Чекро нигоҳ доред ва ба фурушанда фиристед.</p>'+receipt(o)}
+ $("main").innerHTML=(me&&me.role=="admin"&&me.p=="admin123"?'<div class="card" style="border-color:var(--acc)"><b>Диққат:</b> пароли админ ҳанӯз стандартӣ аст. <button class="p sm" onclick="go(\'me\')">Иваз кардан</button></div>':"")+h}
+function shopV(){var l=db.products;if(!l.length)return '<div class="card mut">Ҳанӯз маҳсулот нест. Фурушанда ё админ метавонад илова кунад.</div>';
+ return '<div class="grid">'+l.map(function(p){return '<div class="card"><b>'+esc(p.name)+'</b><div class="mut">'+esc(p.desc)+'</div><div class="mut">Фурушанда: '+esc(p.sname)+' · дар анбор: '+p.stock+'</div><div class="price">'+p.price+'</div>'+
+  (me&&me.role=="customer"?(p.stock>0?'<button class="p" onclick="add(\''+p.id+'\')">Ба сабад</button>':'<span class="tag">Тамом шуд</span>'):'<div class="mut">Барои харид ворид шавед</div>')+'</div>'}).join("")+'</div>'}
+function loginV(){return '<div class="card"><h2>Воридшавӣ</h2><div class="row"><input id="lu" placeholder="Логин" autocomplete="username"><input id="lp" type="password" placeholder="Парол" autocomplete="current-password"></div><button class="p" onclick="login()">Ворид шудан</button> <span class="mut" id="lerr"></span><p class="mut">Админи аввалин: admin / admin123 (дарҳол иваз кунед).</p></div>'+
+ '<div class="card"><h2>Сабти ном (мизоҷ)</h2><div class="row"><input id="rn" placeholder="Ному насаб"><input id="ru" placeholder="Логин"><input id="rp" type="password" placeholder="Парол"></div><button class="p" onclick="register()">Сабт шудан</button> <span class="mut" id="rerr"></span></div>'}
+function cartV(){var it=cartItems();if(!it.length)return '<div class="card mut">Сабад холӣ аст.</div>';var tot=0;
+ return '<div class="card"><h2>Сабад</h2>'+it.map(function(x){tot+=x.price*x.qty;return '<div class="li"><span>'+esc(x.name)+'</span><span><button class="s" onclick="chg(\''+x.pid+'\',-1)">−</button> '+x.qty+' <button class="s" onclick="chg(\''+x.pid+'\',1)">+</button> = '+x.price*x.qty+'</span></div>'}).join("")+'<div class="li"><b>Ҷамъ</b><span class="price">'+tot+'</span></div></div>'+
+ '<div class="card"><h2>Расмӣ кардани фармоиш</h2><div class="row"><input id="cph" placeholder="Телефон"><input id="cad" placeholder="Суроғаи расонидан"></div><div class="row"><select id="cpay"><option>Нақд ҳангоми гирифтан</option><option>Корт ба корт</option><option>Ҳисоби электронӣ</option></select></div><button class="p" onclick="order()">Фармоиш додан</button></div>'}
+function ordersV(){var l=db.orders.filter(function(o){return me.role=="admin"||(me.role=="customer"&&o.cust==me.u)||(me.role=="seller"&&o.items.some(function(x){return x.seller==me.u}))}).slice().reverse();
+ if(!l.length)return '<div class="card mut">Фармоиш нест.</div>';
+ return l.map(function(o){var st=me.role!="customer"?'<select onchange="setSt(\''+o.id+'\',this.value)">'+["Нав","Пардохт шуд","Фиристода шуд","Расонида шуд","Бекор"].map(function(s){return '<option'+(s==o.status?" selected":"")+'>'+s+'</option>'}).join("")+'</select>':'';
+  return receipt(o).replace('<div class="np" style="margin-top:10px">',st+'<div class="np" style="margin-top:10px">')}).join("")}
+function askV(){return '<div class="card"><h2>Савол ё супориш ба фурушанда</h2><textarea id="aq" rows="4" placeholder="Матни савол..." oninput="document.getElementById(\'aqb\').innerHTML=sendBtns(this.value||\' \')"></textarea><div id="aqb">'+sendBtns(" ")+'</div></div>'}
+function prodV(){var l=db.products.filter(function(p){return me.role=="admin"||p.seller==me.u});
+ return '<div class="card"><h2>Маҳсулоти нав</h2><div class="row"><input id="pn" placeholder="Ном"><input id="pp" type="number" min="0" placeholder="Нарх"><input id="ps" type="number" min="0" placeholder="Миқдор"></div><div class="row"><input id="pd" placeholder="Тавсиф"><select id="pc"><option>Электроника</option><option>Либос</option><option>Хона</option><option>Дигар</option></select></div><div class="row"><input id="pi" type="file" accept="image/*"></div><button class="p" onclick="addProd()">Илова кардан</button></div>'+
+ '<div class="card"><h2>Рӯйхат</h2>'+(l.map(function(p){return '<div class="li"><span><img src="'+(p.img||emo("📦"))+'" width="38" height="38" alt="" style="border-radius:6px;vertical-align:middle;object-fit:cover"> '+esc(p.name)+' <span class="mut">'+p.price+' · '+p.stock+' адад · '+esc(p.sname)+'</span></span><button class="s" onclick="delProd(\''+p.id+'\')">Нест</button></div>'}).join("")||'<div class="mut">Холӣ</div>')+'</div>'}
+function usersV(){return '<div class="card"><h2>Админ ё фурушандаи нав</h2><div class="row"><input id="sn" placeholder="Ном"><input id="su" placeholder="Логин"><input id="sp" type="password" placeholder="Парол (аз 6 аломат)"><select id="sr"><option value="admin">Админ</option><option value="seller">Фурушанда</option></select></div><button class="p" onclick="addUser()">Илова кардан</button></div><div class="card"><h2>Корбарон</h2>'+
+ db.users.map(function(u){return '<div class="li"><span>'+esc(u.name)+' <span class="mut">'+esc(u.u)+' · '+u.role+'</span></span>'+(u.u==me.u?'':'<input id="np_'+esc(u.u)+'" type="password" placeholder="Парол нав" style="max-width:120px"><button class="s" onclick="resetPw(\''+esc(u.u)+'\')">Иваз</button> <button class="s" onclick="delUser(\''+esc(u.u)+'\')">Нест</button>')+'</div>'}).join("")+'</div>'}
+function cfgV(){var c=db.cfg;function f(k,l){return '<div class="row"><label style="flex:1 1 100%" class="mut">'+l+'</label><input id="c_'+k+'" value="'+esc(c[k])+'"></div>'}
+ return '<div class="card"><h2>Танзимот</h2>'+f("shop","Номи мағоза")+f("wa","WhatsApp (рақам бо рамзи кишвар, масалан 992900000000)")+f("tg","Telegram (номи корбар)")+f("ig","Instagram (номи корбар)")+f("tt","TikTok (номи корбар)")+f("rb","Истиноди профили шумо дар robita.tj")+f("card","Рақами корт барои пардохт")+
+ '<button class="p" onclick="saveCfg()">Захира кардан</button></div><div class="card"><h2>robita.tj</h2><p class="mut">Агар ҳисоб надошта бошед, дар сайти расмӣ сабти ном кунед:</p><a class="p" target="_blank" rel="noopener" href="https://robita.tj">Кушодани ҳисоб дар robita.tj</a></div>'}
+function grid(){var l=db.products.filter(function(p){return(cat=="Ҳама"||p.cat==cat)&&p.name.toLowerCase().indexOf(q.toLowerCase())>-1});
+ if(srt=="a")l.sort(function(a,b){return a.price-b.price});if(srt=="d")l.sort(function(a,b){return b.price-a.price});
+ if(!l.length)return '<div class="card mut">Чизе ёфт нашуд.</div>';
+ return l.map(function(p,i){var buy=me&&me.role=="customer"?(p.stock>0?'<button class="p" onclick="add(\''+p.id+'\')">Ба сабад</button>':'<span class="tag">Тамом шуд</span>'):'<div class="mut">Барои харид ворид шавед</div>';
+  return '<div class="card pc'+(fresh?' an':'')+'" style="animation-delay:'+Math.min(i,10)*60+'ms"><button class="heart" onclick="fv(\''+p.id+'\')" aria-label="Дӯстдошта">'+(fav[p.id]?'❤️':'🤍')+'</button><img src="'+(p.img||emo("📦"))+'" alt="'+esc(p.name)+'"><div class="pb"><b>'+esc(p.name)+'</b><div class="mut">'+esc(p.desc)+'</div><div class="mut">'+esc(p.sname)+' · '+p.stock+' адад</div><div class="price">'+p.price+' сом.</div>'+buy+'</div></div>'}).join("")}
+function fv(id){fav[id]=!fav[id];$("pg").innerHTML=grid()}
+function shopV2(){var g=grid();fresh=0;
+ return '<div class="hero"><div class="fl">📦</div><div class="fl f2">🛍️</div><h2>Мағозаи №1 дар Осиёи Марказӣ</h2><p>Маҳсулоти Чин бо нархи беҳтарин. Расонидан ба Тоҷикистон, Ӯзбекистон, Қазоқистон, Қирғизистон ва Туркманистон.</p><div class="stats"><span><b>'+db.products.length+'</b> маҳсулот</span><span><b>5</b> кишвар</span><span><b>24/7</b> дастгирӣ</span></div></div>'+
+ '<div class="row np"><input placeholder="🔍 Ҷустуҷӯи маҳсулот" value="'+esc(q)+'" oninput="q=this.value;$(\'pg\').innerHTML=grid()"><select onchange="srt=this.value;render()"><option value="">Тартиб</option><option value="a"'+(srt=="a"?" selected":"")+'>Аввал арзон</option><option value="d"'+(srt=="d"?" selected":"")+'>Аввал гарон</option></select></div>'+
+ '<div class="np">'+["Ҳама","Электроника","Либос","Хона","Дигар"].map(function(c){return '<button class="chip'+(c==cat?' on':'')+'" onclick="cat=\''+c+'\';render()">'+c+'</button>'}).join("")+'</div><div class="grid" id="pg">'+g+'</div>'}
+function meV(){return '<div class="card"><h2>Профил: '+esc(me.name)+'</h2><div class="mut">Логин: '+esc(me.u)+'</div></div><div class="card"><h2>Иваз кардани парол</h2><div class="row"><input id="pw0" type="password" placeholder="Пароли кунунӣ" autocomplete="current-password"></div><div class="row"><input id="pw1" type="password" placeholder="Пароли нав (на камтар аз 6 аломат)" autocomplete="new-password"><input id="pw2" type="password" placeholder="Пароли навро такрор кунед" autocomplete="new-password"></div><button class="p" onclick="chgPw()">Захира кардан</button> <span class="mut" id="pwe"></span></div>'}
+function chgPw(){var o=$("pw0").value,n=$("pw1").value,n2=$("pw2").value,u=db.users.filter(function(x){return x.u==me.u})[0];
+ if(u.p!=o)return $("pwe").textContent="Пароли кунунӣ нодуруст аст.";
+ if(n.length<6)return $("pwe").textContent="Парол бояд на камтар аз 6 аломат бошад.";
+ if(n!=n2)return $("pwe").textContent="Паролҳои нав мувофиқ нестанд.";
+ u.p=n;me=u;try{sessionStorage.setItem("shop_me",JSON.stringify(u))}catch(e){}save();toast("Парол иваз шуд ✓");render()}
+function resetPw(l){var v=$("np_"+l).value,u=db.users.filter(function(x){return x.u==l})[0];
+ if(v.length<6)return toast("Парол бояд аз 6 аломат кам набошад");u.p=v;save();toast("Пароли "+l+" иваз шуд ✓");render()}
+render();
+</script>
+</body>
+</html>
