@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STEAMUL — Олимпиада</title>
+<style>
+:root{--bg:#f3f5fb;--card:#fff;--ink:#16203a;--mute:#6b7893;--line:#e0e5f0;--p:#4f46e5;--p2:#06b6d4;--ok:#16a34a;--bad:#dc2626;--soft:#eef0ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1120;--card:#151c33;--ink:#eaf0ff;--mute:#93a0bd;--line:#26304d;--soft:#1e2748}}
+:root[data-theme="dark"]{--bg:#0c1120;--card:#151c33;--ink:#eaf0ff;--mute:#93a0bd;--line:#26304d;--soft:#1e2748}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif}
+body{min-height:100%}
+.top{background:linear-gradient(120deg,var(--p),var(--p2));color:#fff;padding:14px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.brand{font-size:1.4rem;font-weight:800;letter-spacing:.08em}.brand small{display:block;font-size:.65rem;font-weight:400;letter-spacing:.12em;opacity:.9}
+.chip{background:rgba(255,255,255,.2);border-radius:20px;padding:5px 12px;font-size:.85rem;display:flex;gap:8px;align-items:center}
+.chip button{background:none;border:0;color:#fff;cursor:pointer;text-decoration:underline;font:inherit}
+nav{display:flex;gap:6px;padding:10px 12px;overflow-x:auto}
+nav button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:20px;cursor:pointer;white-space:nowrap;font:inherit;font-size:.9rem}
+nav button.on{background:var(--p);color:#fff;border-color:var(--p)}
+main{max-width:980px;margin:0 auto;padding:6px 12px 30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+h2{margin:4px 0 10px;font-size:1.15rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+input,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+.btn{border:0;border-radius:10px;padding:10px 16px;background:var(--p);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.btn.g{background:var(--soft);color:var(--ink)}.btn.r{background:var(--bad)}.btn.s{padding:6px 10px;font-size:.8rem}
+.row{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}.grow{flex:1;min-width:0}.mute{color:var(--mute);font-size:.82rem}
+.av{width:44px;height:44px;border-radius:50%;object-fit:cover;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.badge{font-size:.72rem;padding:3px 9px;border-radius:12px;background:var(--soft)}.badge.ok{background:var(--ok);color:#fff}
+.login{max-width:360px;margin:40px auto}.login .in{margin-bottom:10px}.err{color:var(--bad);font-size:.88rem;margin-bottom:8px}
+.pod{display:flex;gap:8px;align-items:flex-end;justify-content:center;margin:10px 0 16px}
+.pod>div{flex:1;max-width:190px;text-align:center;border-radius:14px 14px 0 0;padding:10px 6px;background:var(--soft)}
+.pod .av{margin:0 auto 6px;width:56px;height:56px}
+.pod .m{font-size:1.8rem}.p1{min-height:170px;background:linear-gradient(#fde68a55,var(--soft))}.p2{min-height:140px}.p3{min-height:120px}
+.pl{width:34px;text-align:center;font-weight:800}
+.sc{width:84px}.note{background:var(--soft);border-radius:10px;padding:8px 12px;font-size:.82rem;margin:8px 12px}
+.me{background:var(--soft);border-radius:10px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ADMIN_H="314b2864555e494d10557cbf44b57b9a1b07bd8a40e95969d728b5f4242fc5c6";
+async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+let S={users:[],subjects:[],olys:[],res:[]},db=null,me=null,tab="",msg="",selO="";
+try{me=JSON.parse(sessionStorage.getItem("me"))}catch(e){}
+const LS=()=>{try{localStorage.setItem("stl",JSON.stringify(S))}catch(e){}};
+function put(c,id,o){S[c]=S[c].filter(x=>x.id!==id).concat([{id,...o}]);if(db)db.collection(c).doc(id).set(o).catch(e=>alert("Хатогӣ: "+(e.message||e.code)));else LS();draw(true)}
+function del(c,id){if(!confirm("Нест карда шавад?"))return;S[c]=S[c].filter(x=>x.id!==id);if(db)db.collection(c).doc(id).delete().catch(()=>{});else LS();draw(true)}
+const img=f=>new Promise(r=>{if(!f)return r("");const i=new Image();i.onload=()=>{const c=document.createElement("canvas");c.width=c.height=120;const m=Math.min(i.width,i.height);c.getContext("2d").drawImage(i,(i.width-m)/2,(i.height-m)/2,m,m,0,0,120,120);r(c.toDataURL("image/jpeg",.7))};i.onerror=()=>r("");i.src=URL.createObjectURL(f)});
+const av=u=>u&&String(u.photo||"").startsWith("data:image/")?`<img class="av" src="${esc(u.photo)}" alt="">`:`<div class="av">${esc((u&&u.name||"?")[0])}</div>`;
+const subj=id=>S.subjects.find(s=>s.id===id)||{name:"—",icon:"•"};
+const usr=id=>S.users.find(u=>u.id===id)||{name:"?"};
+function rank(oid){const rs=S.res.filter(r=>r.oid===oid&&r.score!==""&&r.score!=null).map(r=>({...r,score:+r.score})).sort((a,b)=>b.score-a.score);let p=0,l=null;rs.forEach((r,i)=>{if(r.score!==l){p=i+1;l=r.score}r.place=p});return rs}
+const vis=()=>S.olys.filter(o=>me.role==="admin"||o.pub).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+
+async function login(){const l=$("#lg").value.trim().toLowerCase(),p=$("#pw").value;let u=null;
+ if(l==="admin"){if(await sha("steamul|admin|"+p)===ADMIN_H)u={login:"admin",name:"Администратор",role:"admin"}}
+ else{const x=S.users.find(x=>x.id===l);if(x&&x.ph===await sha("steamul|"+l+"|"+p))u={login:l,name:x.name,role:x.role}}
+ if(!u){msg="Логин ё парол нодуруст аст";draw(true);return}
+ me=u;tab=u.role==="admin"?"subj":"rank";msg="";try{sessionStorage.setItem("me",JSON.stringify(u))}catch(e){}draw(true)}
+function logout(){me=null;try{sessionStorage.removeItem("me")}catch(e){}draw(true)}
+function go(t){tab=t;draw(true)}
+
+function addSubj(){const n=$("#sn").value.trim();if(!n)return;put("subjects","s"+Date.now(),{name:n,icon:$("#si").value.trim()||"📘"})}
+function seed(){[["Риёзиёт","∑"],["Физика","⚛️"],["Химия","🧪"],["Биология","🧬"],["Информатика","💻"],["Астрономия","🔭"],["География","🌍"]].forEach(([n,i],k)=>put("subjects","d"+k,{name:n,icon:i}))}
+async function addUser(){const l=$("#ul").value.trim().toLowerCase(),n=$("#un").value.trim(),p=$("#up").value;
+ if(!l||!n||l==="admin"||/[^a-z0-9_.-]/.test(l)){alert("Логин: ҳарфҳои лотинӣ, рақам, _ . - (на «admin») ва ном лозим аст");return}
+ const old=S.users.find(u=>u.id===l);if(!p&&!old){alert("Парол ворид кунед");return}
+ const ph=p?await sha("steamul|"+l+"|"+p):old.ph;const f=$("#uf").files[0];const photo=f?await img(f):(old?old.photo||"":"");
+ put("users",l,{name:n,role:$("#ur").value,cls:$("#uc").value.trim(),school:$("#us").value.trim(),photo,ph})}
+function editU(id){const u=usr(id);$("#ul").value=id;$("#un").value=u.name;$("#ur").value=u.role;$("#uc").value=u.cls||"";$("#us").value=u.school||"";$("#up").value="";scrollTo(0,0)}
+function addOly(){const n=$("#on").value.trim();if(!n||!$("#os").value){alert("Ном ва фанро интихоб кунед");return}
+ put("olys","o"+Date.now(),{name:n,sid:$("#os").value,date:$("#od").value,max:+$("#om").value||100,pub:false})}
+function togPub(id){const o=S.olys.find(x=>x.id===id);const{id:_,...r}=o;put("olys",id,{...r,pub:!o.pub})}
+function setScore(oid,uid,v){const o=S.olys.find(x=>x.id===oid),k=oid+"_"+uid;
+ if(v===""){if(S.res.find(r=>r.id===k)){S.res=S.res.filter(r=>r.id!==k);if(db)db.collection("res").doc(k).delete();else LS();draw(true)}return}
+ let n=Math.max(0,Math.min(o.max,+v));put("res",k,{oid,uid,score:n})}
+function selOly(v){selO=v;draw(true)}
+
+function head(){const T={admin:[["subj","Фанҳо"],["usr","Иштирокчиён"],["oly","Олимпиадаҳо"],["sc","Натиҷаҳо"],["rank","Ҷадвал"]],student:[["rank","Ҷадвал"],["prof","Профил"]],viewer:[["rank","Ҷадвал"]]}[me.role];
+ return `<div class="top"><div class="brand">STEAMUL<small>ОЛИМПИАДАИ ФАНҲОИ ДАҚИҚ ВА ТАБИЇ</small></div><div class="chip">${esc(me.name)}<button onclick="logout()">Баромадан</button></div></div>
+ <nav>${T.map(t=>`<button class="${tab===t[0]?"on":""}" onclick="go('${t[0]}')">${t[1]}</button>`).join("")}</nav>${db?"":'<div class="note">Реҷаи маҳаллӣ: маълумот танҳо дар ин дастгоҳ нигоҳ дошта мешавад.</div>'}`}
+const olySel=(list)=>{if(!list.some(o=>o.id===selO))selO=list[0]?list[0].id:"";return `<select onchange="selOly(this.value)">${list.map(o=>`<option value="${o.id}" ${o.id===selO?"selected":""}>${esc(subj(o.sid).icon)} ${esc(o.name)}</option>`).join("")}</select>`};
+
+function vSubj(){return `<div class="card"><h2>Фанҳо</h2><div class="grid"><input id="sn" placeholder="Номи фан"><input id="si" placeholder="Нишона (масалан ⚛️)"><button class="btn" onclick="addSubj()">Илова</button></div></div>
+ <div class="card">${S.subjects.length?S.subjects.map(s=>`<div class="row"><div class="av">${esc(s.icon)}</div><div class="grow">${esc(s.name)}</div><button class="btn r s" onclick="del('subjects','${s.id}')">Нест</button></div>`).join(""):'<p class="mute">Фан нест.</p><button class="btn g" onclick="seed()">Фанҳои стандартиро илова кун</button>'}</div>`}
+function vUsr(){return `<div class="card"><h2>Иштирокчӣ / тамошобин</h2><div class="grid"><input id="un" placeholder="Номи пурра"><input id="ul" placeholder="Логин (лотинӣ)"><input id="up" type="password" placeholder="Парол"><select id="ur"><option value="student">Хонанда</option><option value="viewer">Тамошобин</option></select><input id="uc" placeholder="Синф (масалан 9-А)"><input id="us" placeholder="Мактаб"><input id="uf" type="file" accept="image/*"></div><p><button class="btn" onclick="addUser()">Захира</button> <span class="mute">Барои тағйир логини мавҷударо ворид кунед; паролро холӣ монед, то нигоҳ дошта шавад.</span></p></div>
+ <div class="card">${S.users.length?S.users.map(u=>`<div class="row">${av(u)}<div class="grow"><b>${esc(u.name)}</b> <span class="badge">${u.role==="student"?"хонанда":"тамошобин"}</span><div class="mute">${esc(u.id)} · ${esc(u.cls||"")} ${esc(u.school||"")}</div></div><button class="btn g s" onclick="editU('${u.id}')">Тағйир</button><button class="btn r s" onclick="del('users','${u.id}')">Нест</button></div>`).join(""):'<p class="mute">Ҳоло касе нест.</p>'}</div>`}
+function vOly(){return `<div class="card"><h2>Олимпиадаи нав</h2><div class="grid"><input id="on" placeholder="Номи олимпиада"><select id="os">${S.subjects.map(s=>`<option value="${s.id}">${esc(s.icon)} ${esc(s.name)}</option>`).join("")}</select><input id="od" type="date"><input id="om" type="number" placeholder="Холи максималӣ (100)"><button class="btn" onclick="addOly()">Сохтан</button></div></div>
+ <div class="card">${S.olys.length?S.olys.map(o=>`<div class="row"><div class="av">${esc(subj(o.sid).icon)}</div><div class="grow"><b>${esc(o.name)}</b><div class="mute">${esc(subj(o.sid).name)} · ${esc(o.date||"")} · макс ${o.max}</div></div><span class="badge ${o.pub?"ok":""}">${o.pub?"эълон шуд":"пинҳон"}</span><button class="btn g s" onclick="togPub('${o.id}')">${o.pub?"Пинҳон":"Эълон"}</button><button class="btn r s" onclick="del('olys','${o.id}')">Нест</button></div>`).join(""):'<p class="mute">Олимпиада нест.</p>'}</div>`}
+function vSc(){if(!S.olys.length)return '<div class="card">Аввал олимпиада созед.</div>';const st=S.users.filter(u=>u.role==="student"),R=rank(selO);
+ return `<div class="card"><h2>Ворид кардани холҳо</h2>${olySel(S.olys)}</div><div class="card">${st.map(u=>{const r=R.find(x=>x.uid===u.id);return `<div class="row">${av(u)}<div class="grow"><b>${esc(u.name)}</b><div class="mute">${esc(u.cls||"")} ${esc(u.school||"")}</div></div><span class="pl">${r?r.place:""}</span><input class="sc" type="number" value="${r?r.score:""}" placeholder="хол" onchange="setScore('${selO}','${u.id}',this.value)"></div>`}).join("")||'<p class="mute">Хонанда нест.</p>'}</div>`}
+function vRank(){const L=vis();if(!L.length)return '<div class="card"><p class="mute">Натиҷаҳо ҳоло эълон нашудаанд.</p></div>';const o=S.olys.find(x=>x.id===selO)||L[0],R=rank(selO);const M=["🥇","🥈","🥉"];
+ const pod=[1,0,2].map(i=>R[i]?`<div class="p${i+1}"><div class="m">${M[i]}</div>${av(usr(R[i].uid))}<b>${esc(usr(R[i].uid).name)}</b><div class="mute">${esc(usr(R[i].uid).school||"")}</div><b>${R[i].score}</b></div>`:"").join("");
+ return `<div class="card"><h2>Натиҷаи олимпиада</h2>${olySel(L)}</div>${R.length?`<div class="card"><div class="pod">${pod}</div>${R.map(r=>{const u=usr(r.uid);return `<div class="row ${me.login===r.uid?"me":""}"><span class="pl">${r.place<=3?M[r.place-1]:r.place}</span>${av(u)}<div class="grow"><b>${esc(u.name)}</b><div class="mute">${esc(u.cls||"")} · ${esc(u.school||"")}</div></div><b>${r.score}</b><span class="mute">/ ${o.max}</span></div>`}).join("")}</div>`:'<div class="card"><p class="mute">Холҳо ворид нашудаанд.</p></div>'}`}
+function vProf(){const u=usr(me.login),my=S.res.filter(r=>r.uid===me.login&&S.olys.find(o=>o.id===r.oid&&o.pub));
+ return `<div class="card"><div class="row">${av(u)}<div class="grow"><h2>${esc(u.name)}</h2><div class="mute">${esc(u.cls||"")} · ${esc(u.school||"")}</div></div></div></div><div class="card"><h2>Натиҷаҳои ман</h2>${my.length?my.map(r=>{const o=S.olys.find(x=>x.id===r.oid),p=rank(r.oid).find(x=>x.uid===me.login);return `<div class="row"><div class="av">${esc(subj(o.sid).icon)}</div><div class="grow"><b>${esc(o.name)}</b><div class="mute">${esc(subj(o.sid).name)}</div></div><b>${r.score}/${o.max}</b><span class="badge ok">ҷой ${p?p.place:"-"}</span></div>`}).join(""):'<p class="mute">Натиҷаи эълоншуда нест.</p>'}</div>`}
+
+function draw(force){const a=document.activeElement;if(!force&&a&&/INPUT|SELECT/.test(a.tagName))return;
+ if(!me){$("#app").innerHTML=`<div class="login card"><div class="brand" style="color:var(--p);text-align:center;font-size:1.8rem">STEAMUL<small>ОЛИМПИАДА</small></div><h2>Ворид шавед</h2>${msg?`<div class="err">${esc(msg)}</div>`:""}<input class="in" id="lg" placeholder="Логин" autocomplete="username"><input class="in" id="pw" type="password" placeholder="Парол" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()"><button class="btn" style="width:100%" onclick="login()">Ворид</button></div>`;return}
+ if(!tab)tab=me.role==="admin"?"subj":"rank";
+ const V={subj:vSubj,usr:vUsr,oly:vOly,sc:vSc,rank:vRank,prof:vProf};
+ $("#app").innerHTML=head()+"<main>"+(V[tab]||vRank)()+"</main>"}
+(async()=>{draw(true);try{if(window.claude&&claude.use){const d=await claude.use("db");if(d)db=d}}catch(e){}
+ if(db)Object.keys(S).forEach(c=>db.collection(c).onSnapshot(s=>{S[c]=s.docs.map(x=>({id:x.id,...x.data()}));draw()},()=>{}));
+ else{try{Object.assign(S,JSON.parse(localStorage.getItem("stl")||"{}"))}catch(e){}}
+ draw(true)})();
+</script>
+</body>
+</html>
