@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Табрикнома барои тағоҷонам Абдуғафур</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,600;0,800;1,600&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#efe6d0;--paper:#fffaf0;--ink:#14234a;--soft:#4f5a7e;--tq:#1f9d91;--gold:#d99416;--pom:#b92d41;--env:#1c3a7a;--env2:#14295a;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1431;--paper:#f7f0de;--ink:#14234a;--soft:#4f5a7e;--tq:#35c9ba;--gold:#f2b134;--env:#2b4fa3;--env2:#1d3978;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1431;--paper:#f7f0de;--ink:#14234a;--soft:#4f5a7e;--tq:#35c9ba;--gold:#f2b134;--env:#2b4fa3;--env2:#1d3978;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);font:400 17px/1.7 "Noto Sans",system-ui,sans-serif;color:var(--ink);display:flex;justify-content:center}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.stage{width:100%;max-width:520px;padding:24px 16px 48px;display:flex;flex-direction:column;align-items:center}
+.hint{text-align:center;margin:8px 0 26px;font:600 20px/1.4 "Noto Serif",serif;color:var(--gold)}
+/* envelope */
+.env{position:relative;width:min(92vw,400px);height:min(60vw,250px);cursor:pointer;border:0;background:none;padding:0;transition:margin-bottom .8s ease}
+.env:focus-visible{outline:3px solid var(--gold);outline-offset:6px;border-radius:10px}
+.back{position:absolute;inset:0;background:var(--env2);border-radius:8px}
+.paper-peek{position:absolute;left:6%;right:6%;top:4%;bottom:4%;background:var(--paper);border-radius:6px;transition:transform .9s ease .35s}
+.front{position:absolute;inset:0;border-radius:8px;overflow:hidden;pointer-events:none}
+.front::before,.front::after{content:"";position:absolute;bottom:0;width:100%;height:100%}
+.front::before{background:linear-gradient(to top right,var(--env) 49.5%,transparent 50%) left/50% 100% no-repeat,linear-gradient(to top left,var(--env) 49.5%,transparent 50%) right/50% 100% no-repeat}
+.front::after{background:linear-gradient(to top,var(--env) 0,var(--env) 52%,transparent 52.5%);clip-path:polygon(0 100%,50% 34%,100% 100%)}
+.flap{position:absolute;left:0;right:0;top:0;height:58%;background:var(--env);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .6s ease;z-index:3;border-radius:8px 8px 0 0}
+.seal{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e25168,var(--pom));color:#fff;font:800 28px/62px "Noto Serif",serif;text-align:center;z-index:4;box-shadow:0 3px 8px rgba(0,0,0,.35);transition:opacity .3s}
+.env.open .flap{transform:rotateX(180deg);z-index:1}
+.env.open .seal{opacity:0}
+.env.open .paper-peek{transform:translateY(-30%)}
+.env.gone{height:0;margin:0;overflow:hidden;opacity:0;pointer-events:none}
+/* card */
+.card{display:none;width:100%;background:var(--paper);border-radius:6px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.card.show{display:block;animation:rise .8s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(40px) scale(.96)}to{opacity:1;transform:none}}
+.frame{border:2px solid var(--gold);padding:6px;border-radius:2px}
+.inner{border:1px solid var(--tq);padding:26px 22px 28px;position:relative;text-align:center}
+.band{height:18px;margin:0 -22px;background:repeating-linear-gradient(90deg,var(--pom) 0 14px,var(--gold) 14px 28px,var(--tq) 28px 42px,var(--env) 42px 56px);clip-path:polygon(0 50%,7px 0,14px 50%,21px 0,28px 50%,35px 0,42px 50%,49px 0,56px 50%,56px 100%,0 100%);opacity:.9}
+.band.b2{transform:scaleY(-1);margin-top:22px}
+.num{font:800 84px/1 "Noto Serif",serif;color:var(--pom);margin:20px 0 0}
+.num small{display:block;font:600 16px "Noto Sans",sans-serif;color:var(--soft);margin-top:2px}
+h1{font:800 clamp(26px,7vw,34px)/1.25 "Noto Serif",serif;margin:14px 0 4px}
+.dear{font:italic 600 21px "Noto Serif",serif;color:var(--tq);margin:12px 0}
+.txt{text-align:left;margin:14px 0 0;color:var(--ink)}
+.txt p{margin:0 0 12px;max-width:52ch}
+.sign{font:italic 600 22px "Noto Serif",serif;text-align:right;margin-top:18px;line-height:1.4}
+.sign span{display:block;font:400 15px "Noto Sans",sans-serif;font-style:normal;color:var(--soft)}
+.acts{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.btn{border:0;border-radius:12px;padding:12px 18px;font:600 16px "Noto Sans",sans-serif;cursor:pointer;background:var(--pom);color:#fff}
+.btn.alt{background:var(--tq);color:#06231f}
+.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.toast{min-height:26px;margin-top:10px;color:var(--soft);font-weight:600;text-align:center;font-size:15px}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+@media (prefers-reduced-motion:reduce){.card.show{animation:none}.flap,.paper-peek,.env{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="cv" aria-hidden="true"></canvas>
+<main class="stage">
+<p class="hint" id="hint">Барои шумо табрикнома омад. Онро кушоед.</p>
+
+<button class="env" id="env" aria-label="Конвертро кушоед">
+<div class="back"></div>
+<div class="paper-peek"></div>
+<div class="front"></div>
+<div class="flap"></div>
+<div class="seal">А</div>
+</button>
+
+<article class="card" id="card">
+<div class="frame"><div class="inner">
+<div class="band"></div>
+<p class="num">34ғ солагӣ<small>зодрӯзатон муборак</small></p>
+<h1>Тағоҷони азизам Абдуғафур!</h1>
+<p class="dear">Бо самимияти дил</p>
+<div class="txt" id="txt">
+<p>Зодрӯзи 34-солагиатонро аз самими қалб табрик мегӯям. Шумо барои ман на танҳо тағо, балки роҳнамо ва такягоҳ ҳастед.</p>
+<p>Орзу дорам, ки умратон дароз, саломатиатон бардавом ва хонаатон ҳамеша пур аз шодӣ ва баракат бошад. Ҳар орзуе, ки дар дил доред, ба амал ояд.</p>
+<p>Ҳамеша хуш бошед, ҳамеша дар назди мо бошед!</p>
+</div>
+<p class="sign">Бо эҳтиром ва муҳаббат,<br>ҷияни шумо Шукруллоҳҷон<span>7 ноябри 2026</span></p>
+<div class="band b2"></div>
+</div></div>
+<div class="acts">
+<button class="btn" id="again">Боз як бор</button>
+<button class="btn alt" id="share">Фиристодан</button>
+</div>
+<p class="toast" id="toast" aria-live="polite"></p>
+</article>
+</main>
+
+<script>
+const $=s=>document.querySelector(s);
+const env=$('#env'),card=$('#card');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* confetti */
+const cv=$('#cv'),cx=cv.getContext('2d');let ps=[],run=false;
+function size(){cv.width=innerWidth;cv.height=innerHeight}size();addEventListener('resize',size);
+function boom(n){
+ const c=['#d99416','#1f9d91','#b92d41','#ffffff','#35c9ba'];
+ for(let i=0;i<n;i++)ps.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*15,vy:Math.random()*-14-2,w:6+Math.random()*6,c:c[i%5],r:Math.random()*6,l:130+Math.random()*50});
+ if(!run){run=true;tick()}
+}
+function tick(){
+ cx.clearRect(0,0,cv.width,cv.height);
+ ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.36;p.r+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.w/4,p.w,p.w/2);cx.restore()});
+ ps=ps.filter(p=>p.l>0);
+ if(ps.length)requestAnimationFrame(tick);else{run=false;cx.clearRect(0,0,cv.width,cv.height)}
+}
+/* open */
+function openEnv(){
+ if(env.classList.contains('open'))return;
+ env.classList.add('open');$('#hint').style.visibility='hidden';
+ setTimeout(()=>{env.classList.add('gone');card.classList.add('show');if(!reduce)boom(170);card.scrollIntoView({block:'start'})},reduce?0:1300);
+}
+env.onclick=openEnv;
+$('#again').onclick=()=>{
+ card.classList.remove('show');env.classList.remove('gone','open');$('#hint').style.visibility='visible';scrollTo(0,0);
+};
+/* share */
+$('#share').onclick=async()=>{
+ const t='Тағоҷони азизам Абдуғафур, зодрӯзатон муборак! Умратон дароз, саломатии бардавом бошад. Бо камоли эҳтиром, ҷияни шумо Шукруллоҳҷон.';
+ const u=location.href;
+ try{
+  if(navigator.share){await navigator.share({title:'Табрикнома',text:t,url:u});return}
+  await navigator.clipboard.writeText(t+' '+u);$('#toast').textContent='Матн нусха шуд.';
+ }catch(e){$('#toast').textContent='Матнро дастӣ нусха кунед.'}
+};
+</script>
+</body>
+</html>
